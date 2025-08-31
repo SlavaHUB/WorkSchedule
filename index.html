@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>График — Левченко М.С. (сентябрь 2025)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main class="app">
+        <div class="title">Левченко М.С. — расписание</div>
+        <div class="subtitle">Сентябрь 2025 • формат времени: <span class="pill">ЧЧ:ММ–ЧЧ:ММ</span> или <span
+                class="pill">В</span> (выходной)</div>
+
+        <section class="grid">
+            <div class="field">
+                <label for="date">Выберите дату</label>
+                <input id="date" type="date" />
+                <div class="hint">Покажет время работы в выбранный день</div>
+            </div>
+
+            <div class="field">
+                <label>Быстрые действия</label>
+                <div class="btns">
+                    <button id="btn-today" class="btn-accent">Сегодня</button>
+                    <button id="btn-weekend">Ближайшие выходные</button>
+                </div>
+                <div class="hint">Найдёт ближайшие выходные</div>
+            </div>
+
+            <div class="field">
+                <label>Результат</label>
+                <div id="result" class="result">
+                    <div class="when muted">Пока ничего не выбрано</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+        <div class="row small">
+            <div class="container_result">Месяц: <b>сентябрь 2025</b> • Дней: <span id="days-count">30</span></div>
+            <div class="stack small">
+                <span class="tag ok">рабочий день</span>
+                <span class="tag off">выходной</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>Сделано с любовью для моей Маши, от лучшего мужа на свете.</span>
+        </div>
+    </main>
+
+    <script src="script.js"> </script>
+</body>
+
+</html>
