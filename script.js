@@ -1,23 +1,20 @@
-/**
+/*
  * ГРАФИК НА СЕНТЯБРЬ 2025 — Левченко М.С.
  * Значение: строка "HH:MM-HH:MM" — рабочее время; "В" — выходной; ""/null — нет данных.
- *
- * Ниже внесены примеры (часть дат заполнена). Замените/дополните по необходимости.
  */
 const schedule = {
   year: 2025,
   month: 9, // сентябрь
   days: {
-    // Пример заполнения:
     1: "09:00-18:00",
-    2: "В",          // пример
+    2: "В",
     3: "В",
     4: "11:00-20:00",
     5: "10:00-19:000",
     6: "12:00-21:00",
     7: "10:00-19:00",
-    8: "09:00-18:00",          // пример
-    9: "В",          // пример
+    8: "09:00-18:00",
+    9: "В",
     10: "В",
     11: "12:00-21:00",
     12: "12:00-21:00",
@@ -55,38 +52,47 @@ const minStr = `${schedule.year}-${pad(schedule.month)}-01`;
 const maxStr = `${schedule.year}-${pad(schedule.month)}-${pad(Object.keys(schedule.days).length)}`;
 $date.min = minStr;
 $date.max = maxStr;
-
-// 1) Создадим кнопку с таким же стилем, как "Ближайшие выходные"
+// 1) Создадим кнопку с обычным стилем
 const btnFullSchedule = document.createElement('button');
 btnFullSchedule.textContent = 'Показать полный календарь';
-// используем стиль обычной кнопки, как у "Ближайшие выходные"
 btnFullSchedule.id = 'btn-full-schedule';
-$btnWeekend.parentNode.appendChild(btnFullSchedule); // вставляем рядом с кнопкой «Ближайшие выходные»
+$btnWeekend.parentNode.appendChild(btnFullSchedule);
 
-// 2) Функция генерации календаря
+// 2) Функция генерации календаря с адаптивной сеткой
 function renderFullCalendar() {
   const totalDays = Object.keys(schedule.days).length;
-  let html = '<div class="grid-calendar" style="display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin-top:12px">';
+  let html = `
+      <div class="calendar-wrapper" style="overflow-x:auto; margin-top:12px;">
+        <div class="grid-calendar" style="
+          display:grid;
+          grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+          gap:6px;
+        ">
+    `;
 
   for (let day = 1; day <= totalDays; day++) {
     const val = schedule.days[day] || '';
     const isWeekend = val.toUpperCase() === 'В';
     html += `<div class="calendar-day" style="
-            padding:10px; 
+            padding:6px; 
             text-align:center; 
             border-radius:8px; 
             border:2px solid ${isWeekend ? '#ff5d5d' : '#2ecc71'}; 
             color:${isWeekend ? '#ff5d5d' : '#2ecc71'};
             font-weight:bold;
+            font-size:14px;
+            min-width:40px;
         ">${day}</div>`;
   }
-  html += '</div>';
+
+  html += `</div></div>`;
 
   $result.innerHTML = `<div class="when"><b>Полный календарь:</b></div>` + html;
 }
 
 // 3) Обработчик кнопки
 btnFullSchedule.addEventListener('click', renderFullCalendar);
+
 
 // Показ результата
 function renderDayInfo(dateStr) {
